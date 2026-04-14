@@ -9,11 +9,9 @@ import com.edutech.progressive.entity.Supplier;
 
 @Repository
 public interface SupplierRepository extends JpaRepository<Supplier, Integer>{
-
     @Query("DELETE FROM Supplier s WHERE s.supplierId =:supplierId")
     void deleteBySupplierId(@Param("supplierId") int supplierId);
 
-
-     @Query("SELECT s FROM Supplier s WHERE s.supplierId =:supplierId")
+    @Query("SELECT s FROM Supplier s WHERE s.supplierId =:supplierId")
     Supplier findBySupplierId(@Param("supplierId") int supplierId);
 }

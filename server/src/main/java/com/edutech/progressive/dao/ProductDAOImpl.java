@@ -21,7 +21,7 @@ public class ProductDAOImpl implements ProductDAO {
         try (Connection connection = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            ps.setInt(1, product.getWarehouseId());
+            ps.setInt(1, product.getWarehouse().getWarehouseId());
             ps.setString(2, product.getProductName());
             ps.setString(3, product.getProductDescription());
             ps.setInt(4, product.getQuantity());
@@ -59,7 +59,7 @@ public class ProductDAOImpl implements ProductDAO {
                 if (rs.next()) {
                     Product product = new Product();
                     product.setProductId(rs.getInt("product_id"));
-                    product.setWarehouseId(rs.getInt("warehouse_id"));
+                    product.getWarehouse().setWarehouseId(rs.getInt("warehouse_id"));
                     product.setProductName(rs.getString("product_name"));
                     product.setProductDescription(rs.getString("product_description"));
                     product.setQuantity(rs.getInt("quantity"));
@@ -79,7 +79,7 @@ public class ProductDAOImpl implements ProductDAO {
         try (Connection connection = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
-            ps.setInt(1, product.getWarehouseId());
+            ps.setInt(1, product.getWarehouse().getWarehouseId());
             ps.setString(2, product.getProductName());
             ps.setString(3, product.getProductDescription());
             ps.setInt(4, product.getQuantity());
@@ -114,7 +114,7 @@ public class ProductDAOImpl implements ProductDAO {
             while (rs.next()) {
                 Product product = new Product();
                 product.setProductId(rs.getInt("product_id"));
-                product.setWarehouseId(rs.getInt("warehouse_id"));
+                product.getWarehouse().setWarehouseId(rs.getInt("warehouse_id"));
                 product.setProductName(rs.getString("product_name"));
                 product.setProductDescription(rs.getString("product_description"));
                 product.setQuantity(rs.getInt("quantity"));
