@@ -35,7 +35,7 @@ public class ShipmentServiceImpl implements ShipmentService {
     public void updateShipment(Shipment shipment) throws SQLException {
         shipmentRepository.save(shipment);
     }
-
+        
     @Override
     public void deleteShipment(int shipmentId) throws SQLException {
         shipmentRepository.deleteById(shipmentId);

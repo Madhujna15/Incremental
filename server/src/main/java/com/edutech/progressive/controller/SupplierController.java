@@ -49,7 +49,7 @@ public class SupplierController {
     }
     
     @DeleteMapping("/{supplierId}")
-    public ResponseEntity<Void> deleteSupplier(int supplierId) {
+    public ResponseEntity<Void> deleteSupplier(@PathVariable int supplierId) {
         return ResponseEntity.ok().build();
     }
     
