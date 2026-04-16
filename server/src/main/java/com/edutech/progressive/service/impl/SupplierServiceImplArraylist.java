@@ -1,38 +1,39 @@
 package com.edutech.progressive.service.impl;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 import com.edutech.progressive.entity.Supplier;
 import com.edutech.progressive.service.SupplierService;
 
-public class SupplierServiceImplArraylist implements SupplierService 
-{
-    private static List<Supplier> supplierList = new ArrayList<>();
+@Service
+public class SupplierServiceImplArraylist  implements SupplierService{
+
+    List<Supplier> suppliers = new ArrayList<>();
 
     @Override
     public List<Supplier> getAllSuppliers() {
-        return supplierList;
+        return suppliers;
     }
 
     @Override
     public int addSupplier(Supplier supplier) {
-        supplierList.add(supplier);
-        return supplierList.size();
+        suppliers.add(supplier);
+        return suppliers.size();
+       
     }
 
     @Override
     public List<Supplier> getAllSuppliersSortedByName() {
-        List<Supplier> sortedSupplier = supplierList;
-        sortedSupplier.sort(Comparator.comparing(Supplier::getSupplierName)); 
-        return sortedSupplier;
+        Collections.sort(suppliers);
+        return getAllSuppliers();
     }
 
-    @Override
-    public void emptyArrayList() {
-        supplierList = new ArrayList<>();
+    public void emptyArrayList(){
+        suppliers.clear();
     }
 
 }
-

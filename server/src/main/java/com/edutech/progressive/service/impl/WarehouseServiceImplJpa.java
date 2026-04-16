@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edutech.progressive.entity.Warehouse;
+import com.edutech.progressive.exception.NoWarehouseFoundForSupplierException;
 import com.edutech.progressive.repository.WarehouseRepository;
 import com.edutech.progressive.service.WarehouseService;
 
@@ -61,8 +62,13 @@ public class WarehouseServiceImplJpa implements WarehouseService {
 
     }
 
+
     public List<Warehouse> getWarehouseBySupplier(int supplierId){
-        return warehouseRepository.findAllBySupplier_SupplierId(supplierId);
+        List<Warehouse> warehouses = warehouseRepository.findAllBySupplier_SupplierId(supplierId);
+        if(warehouses.isEmpty()){
+            throw new NoWarehouseFoundForSupplierException("No warehouse found");
+        }
+        return warehouses;
     }
 
 }

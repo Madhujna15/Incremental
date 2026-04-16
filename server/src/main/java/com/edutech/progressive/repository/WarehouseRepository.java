@@ -14,8 +14,9 @@ import com.edutech.progressive.entity.Warehouse;
 
 @Repository
 public interface WarehouseRepository extends JpaRepository<Warehouse, Long>{
-    
-    Warehouse findByWarehouseId(int warehouseId);
+
+    @Query("select w from Warehouse w where w.warehouseId = :warehouseId")
+    Warehouse findByWarehouseId(@Param("warehouseId") int warehouseId);
     
     @Query("select w from Warehouse w where w.supplier.supplierId = :supplierId")
     List<Warehouse> findAllBySupplier_SupplierId(@Param("supplierId")int supplierId);
@@ -24,4 +25,8 @@ public interface WarehouseRepository extends JpaRepository<Warehouse, Long>{
     @Transactional
     @Query("delete from Warehouse w where w.supplier.supplierId = :supplierId")
     void deleteBySupplierId(@Param("supplierId")int supplierId);
+
+    
+
+
 }

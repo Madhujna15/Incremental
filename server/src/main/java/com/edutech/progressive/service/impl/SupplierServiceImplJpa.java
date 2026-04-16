@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edutech.progressive.entity.Supplier;
+import com.edutech.progressive.exception.SupplierAlreadyExistsException;
+import com.edutech.progressive.exception.SupplierDoesNotExistException;
 import com.edutech.progressive.repository.SupplierRepository;
 import com.edutech.progressive.service.SupplierService;
 
@@ -28,6 +30,12 @@ public class SupplierServiceImplJpa  implements SupplierService{
     }
 
     public int addSupplier(Supplier supplier){
+        if(supplierRepository.findByUsername(supplier.getUsername()) != null){
+            throw new SupplierAlreadyExistsException("Supplier already exists");
+        }
+        if(supplierRepository.findByEmail(supplier.getEmail()) != null){
+            throw new SupplierAlreadyExistsException("Supplier already exists");
+        }
         Supplier savedSupplier = supplierRepository.save(supplier);
         return savedSupplier.getSupplierId();
     }
@@ -39,6 +47,9 @@ public class SupplierServiceImplJpa  implements SupplierService{
     }
 
     public void updateSupplier(int supplierId, Supplier supplier){
+        if(supplierRepository.findByUsername(supplier.getUsername()) != null){
+            throw new SupplierAlreadyExistsException("Supplier Already exists");
+        } 
         Supplier updatedSupplier = supplierRepository.findBySupplierId(supplierId);
         if(updatedSupplier != null){
             
@@ -59,6 +70,9 @@ public class SupplierServiceImplJpa  implements SupplierService{
     }
 
     public Supplier getSupplierById(int supplierId){
+        if(!supplierRepository.existsById(supplierId)){
+            throw new SupplierDoesNotExistException("Supplier does not exist");
+        }
         return supplierRepository.findBySupplierId(supplierId);
     }
 
